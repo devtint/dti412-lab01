@@ -1,0 +1,23 @@
+{% extends "catalog/base.html" %}
+{% block content %}
+<section class="bg-white rounded-3 shadow-sm p-4 p-md-5">
+  <h1 class="display-5 fw-bold text-primary">Welcome to DTI CoursePortal</h1>
+  <p class="lead">Explore IT courses, review syllabus details, and submit course inquiries.</p>
+  <div class="row g-3 mt-3">
+    <div class="col-md-6">
+      <div class="card card-body h-100">
+        <h2 class="h4">{{ total_courses }} Active Courses</h2>
+        <a class="btn btn-primary align-self-start mt-auto" href="{% url 'catalog:course_list' %}">Browse All Courses</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-body h-100">
+        <p class="text-success fw-bold mb-1">Featured Course</p>
+        <h2 class="h4">{{ featured_course.code }} · {{ featured_course.title }}</h2>
+        <p>{{ featured_course.description }}</p>
+        <a class="btn btn-outline-success align-self-start mt-auto" href="{% url 'catalog:course_detail' featured_course.id %}">View Full Syllabus</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
