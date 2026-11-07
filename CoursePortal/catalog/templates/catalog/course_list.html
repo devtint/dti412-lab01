@@ -1,0 +1,29 @@
+{% extends "catalog/base.html" %}
+{% block title %}Courses · DTI CoursePortal{% endblock %}
+{% block content %}
+<h1>Offered IT Courses</h1>
+<form method="get" action="{% url 'catalog:course_list' %}" class="mb-4">
+  <label for="course-search" class="form-label">Search by title or course code</label>
+  <div class="input-group">
+    <input class="form-control" type="search" id="course-search" name="q" value="{{ query }}">
+    <button class="btn btn-primary">Search</button>
+    {% if query %}<a class="btn btn-outline-secondary" href="{% url 'catalog:course_list' %}">Clear</a>{% endif %}
+  </div>
+</form>
+<p class="text-secondary">{{ courses|length }} course{{ courses|length|pluralize }} found</p>
+<div class="row g-3">
+  {% for course in courses %}
+  <div class="col-md-4">
+    <article class="card card-body h-100 shadow-sm">
+      <span class="badge bg-secondary align-self-start mb-2">{{ course.code }}</span>
+      <h2 class="h5">{{ course.title }}</h2>
+      <p>{{ course.description }}</p>
+      <p class="small"><strong>Credits:</strong> {{ course.credits }}<br><strong>Instructor:</strong> {{ course.instructor }}</p>
+      <a class="btn btn-primary mt-auto" href="{% url 'catalog:course_detail' course.id %}">View Course Detail</a>
+    </article>
+  </div>
+  {% empty %}
+  <div class="col"><p class="alert alert-warning">No courses match your search.</p></div>
+  {% endfor %}
+</div>
+{% endblock %}
